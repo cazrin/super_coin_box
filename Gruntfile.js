@@ -35,7 +35,12 @@ module.exports = function (grunt) {
       server: {
         options: {
           base: 'output',
-          port: 8000
+          port: 8000,
+
+          middleware: function (connect, options, middlewares) {
+            middlewares.unshift(require('connect-livereload')());
+            return middlewares;
+          }
         }
       }
     },
@@ -55,6 +60,10 @@ module.exports = function (grunt) {
     },
 
     watch: {
+      options: {
+        livereload: true
+      },
+
       assets: {
         files: ['game/assets/**/*'],
         tasks: ['build:assets']
