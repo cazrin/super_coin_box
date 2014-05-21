@@ -7,12 +7,24 @@ module.exports = function (grunt) {
       js: ['output/**/*.js']
     },
 
+    coffee: {
+      compile: {
+        options: {
+          sourceMap: true
+        },
+
+        files: {
+          'output/js/game.coffee.js': ['game/**/*.coffee']
+        }
+      }
+    },
+
     concat_sourcemap: {
       target: {
         files: {
           'output/js/game.js': [
             'vendor/phaser/phaser.min.js',
-            'game/**/*.js',
+            'output/js/game.coffee.js',
           ]
         }
       }
@@ -55,6 +67,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build:js', [
     'clean:js',
+    'coffee',
     'concat_sourcemap'
   ]);
 
