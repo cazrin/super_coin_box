@@ -3,6 +3,7 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     clean: {
+      assets: ['output/assets'],
       html: ['output/**/*.html'],
       js: ['output/**/*.js']
     },
@@ -40,6 +41,12 @@ module.exports = function (grunt) {
     },
 
     copy: {
+      assets: {
+        files: [
+          { expand: true, cwd: 'game', src: ['assets/**/*'], dest: 'output' }
+        ]
+      },
+
       html: {
         files: [
           { expand: true, cwd: 'game', src: ['**/*.html'], dest: 'output' }
@@ -48,8 +55,13 @@ module.exports = function (grunt) {
     },
 
     watch: {
+      assets: {
+        files: ['game/assets/**/*'],
+        tasks: ['build:assets']
+      },
+
       js: {
-        files: ['game/**/*.js'],
+        files: ['game/**/*.coffee'],
         tasks: ['build:js']
       },
 
@@ -62,7 +74,13 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'build:js',
+    'build:assets',
     'build:html'
+  ]);
+
+  grunt.registerTask('build:assets', [
+    'clean:assets',
+    'copy:assets'
   ]);
 
   grunt.registerTask('build:js', [
