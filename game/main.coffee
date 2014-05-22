@@ -9,6 +9,7 @@ class SuperCoinBox
 
   preload: ->
     @game.load.image 'wall', 'assets/wall.png'
+    @game.load.image 'enemy', 'assets/enemy.png'
     @game.load.spritesheet 'player', 'assets/player.png', 18, 18
 
   create: ->
@@ -19,9 +20,11 @@ class SuperCoinBox
 
     @level = new Level @game
     @player = new Player @game, 32, @game.world.height-48
+    @enemy = new Enemy @game, @game.world.width/2 - TILE_WIDTH, 10
 
   update: ->
     @game.physics.arcade.collide @player, @level.platforms
+    @game.physics.arcade.collide @enemy, @level.platforms
 
     @player.body.velocity.x = 0
 
