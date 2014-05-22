@@ -2,12 +2,15 @@ class Enemy extends Phaser.Sprite
   constructor: (game, x, y, direction) ->
     super game, x, y, 'enemy'
 
-    @direction = 'left'
+    @direction = direction
 
     game.physics.arcade.enable @
     @body.gravity.y = 600
     @checkWorldBounds = true
-    @outOfBoundsKill = true
+
+    @events.onOutOfBounds.add =>
+      @direction = direction
+      @reset x, y
 
     game.add.existing @
 

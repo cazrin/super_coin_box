@@ -20,7 +20,7 @@ class SuperCoinBox
 
     @level = new Level @game, TILE_WIDTH
     @player = new Player @game, 32, @game.world.height-48
-    @enemy = new Enemy @game, @game.world.width/2 - TILE_WIDTH, 10
+    @enemy = new Enemy @game, @game.world.width/2 - TILE_WIDTH, 10, 'left'
 
   update: ->
     @game.physics.arcade.collide @player, @level.platforms
