@@ -9,6 +9,7 @@ class SuperCoinBox
 
   preload: ->
     @game.load.image 'wall', 'assets/wall.png'
+    @game.load.spritesheet 'player', 'assets/player.png', 18, 18
 
   create: ->
     @game.physics.startSystem Phaser.Physics.ARCADE
@@ -22,19 +23,19 @@ class SuperCoinBox
 
     upperLeftWall = @platforms.create 0, 0, 'wall'
     upperLeftWall.body.immovable = true
-    upperLeftWall.scale.setTo 10, 1
+    upperLeftWall.scale.setTo 11, 1
 
-    upperRightWall = @platforms.create @game.world.width, 0, 'wall'
+    upperRightWall = @platforms.create @game.world.width - TILE_WIDTH*11, 0, 'wall'
     upperRightWall.body.immovable = true
-    upperRightWall.scale.setTo -10, 1
+    upperRightWall.scale.setTo 11, 1
 
     lowerLeftWall = @platforms.create 0, @game.world.height - TILE_WIDTH, 'wall'
     lowerLeftWall.body.immovable = true
-    lowerLeftWall.scale.setTo 10, 1
+    lowerLeftWall.scale.setTo 11, 1
 
-    lowerRightWall = @platforms.create @game.world.width, @game.world.height - TILE_WIDTH, 'wall'
+    lowerRightWall = @platforms.create @game.world.width - TILE_WIDTH*11, @game.world.height - TILE_WIDTH, 'wall'
     lowerRightWall.body.immovable = true
-    lowerRightWall.scale.setTo -10, 1
+    lowerRightWall.scale.setTo 11, 1
 
     leftWall = @platforms.create 0, TILE_WIDTH, 'wall'
     leftWall.body.immovable = true
@@ -56,10 +57,40 @@ class SuperCoinBox
     leftPlatform.body.immovable = true
     leftPlatform.scale.setTo 5, 1
 
-    rightPlatform = @platforms.create @game.world.width - TILE_WIDTH, TILE_WIDTH*9, 'wall'
+    rightPlatform = @platforms.create @game.world.width - TILE_WIDTH*6, TILE_WIDTH*9, 'wall'
     rightPlatform.body.immovable = true
-    rightPlatform.scale.setTo -5, 1
+    rightPlatform.scale.setTo 5, 1
+
+    @player = @game.add.sprite 32, @game.world.height - 48, 'player'
+    @player.animations.add 'left', [0, 1], 10, true
+    @player.animations.add 'right', [3, 4], 10, true
+
+    @game.physics.arcade.enable @player
+    @player.body.gravity.y = 600
+    @player.checkWorldBounds = true
+    @player.outOfBoundsKill = true
+
+    @player.events.onKilled.add =>
+      @player.reset 32, @game.world.height - 48
+
+    @cursors = @game.input.keyboard.createCursorKeys()
 
   update: ->
+    @game.physics.arcade.collide @player, @platforms
+
+    @player.body.velocity.x = 0
+
+    if @cursors.left.isDown
+        @player.body.velocity.x = -200
+        @player.animations.play 'left'
+    else if @cursors.right.isDown
+      @player.body.velocity.x = 200
+      @player.animations.play 'right'
+    else
+      @player.animations.stop()
+      @player.frame = 2
+
+    if @cursors.up.isDown and @player.body.touching.down
+      @player.body.velocity.y = -350
 
 new SuperCoinBox()
