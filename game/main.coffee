@@ -13,24 +13,12 @@ class SuperCoinBox
 
   create: ->
     @game.physics.startSystem Phaser.Physics.ARCADE
+    @cursors = @game.input.keyboard.createCursorKeys()
 
     @game.stage.backgroundColor = '#5C9CD4'
 
     @level = new Level @game
-
-    @player = @game.add.sprite 32, @game.world.height - 48, 'player'
-    @player.animations.add 'left', [0, 1], 10, true
-    @player.animations.add 'right', [3, 4], 10, true
-
-    @game.physics.arcade.enable @player
-    @player.body.gravity.y = 600
-    @player.checkWorldBounds = true
-    @player.outOfBoundsKill = true
-
-    @player.events.onKilled.add =>
-      @player.reset 32, @game.world.height - 48
-
-    @cursors = @game.input.keyboard.createCursorKeys()
+    @player = new Player @game, 32, @game.world.height-48
 
   update: ->
     @game.physics.arcade.collide @player, @level.platforms
@@ -38,16 +26,13 @@ class SuperCoinBox
     @player.body.velocity.x = 0
 
     if @cursors.left.isDown
-        @player.body.velocity.x = -200
-        @player.animations.play 'left'
+      @player.moveLeft()
     else if @cursors.right.isDown
-      @player.body.velocity.x = 200
-      @player.animations.play 'right'
+      @player.moveRight()
     else
-      @player.animations.stop()
-      @player.frame = 2
+      @player.stopMoving()
 
     if @cursors.up.isDown and @player.body.touching.down
-      @player.body.velocity.y = -350
+      @player.jump()
 
 new SuperCoinBox()
