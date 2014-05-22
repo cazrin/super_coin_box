@@ -3,6 +3,10 @@ TILE_WIDTH = 18
 collectCoin = ->
   @coin.kill()
 
+playerDied = ->
+  @player.kill()
+  @player.reset 32, @world.height-48
+
 preload = ->
   @load.image 'wall', 'assets/wall.png'
   @load.image 'enemy', 'assets/enemy.png'
@@ -24,6 +28,7 @@ update = ->
   @physics.arcade.collide @player, @level.platforms
   @physics.arcade.collide @enemy, @level.platforms
   @physics.arcade.overlap @player, @coin, collectCoin, null, @
+  @physics.arcade.overlap @player, @enemy, playerDied, null, @
 
   @player.body.velocity.x = 0
 
