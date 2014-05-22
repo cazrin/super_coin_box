@@ -14,9 +14,7 @@ class SuperCoinBox
   create: ->
     @game.physics.startSystem Phaser.Physics.ARCADE
 
-    @background = @game.add.graphics 0, 0
-    @background.beginFill 0x5C9CD4, 1
-    @background.drawRect 0, 0, @game.world.width, @game.world.height
+    @game.stage.backgroundColor = '#5C9CD4'
 
     @level = new Level @game
 
