@@ -65,7 +65,7 @@ module.exports = function (grunt) {
       },
 
       assets: {
-        files: ['game/assets/**/*.png'],
+        files: ['game/assets/**/*'],
         tasks: ['build:assets']
       },
 
