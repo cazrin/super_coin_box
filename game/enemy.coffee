@@ -15,7 +15,7 @@ class Enemy extends Phaser.Sprite
 
   update: ->
     if @direction and @body.touching.down
-      @body.velocity.x = -100
+      @body.velocity.x = if @direction == 'left' then -100 else 100
       delete @direction
 
     if @body.touching.left
