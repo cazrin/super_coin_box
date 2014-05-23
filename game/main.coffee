@@ -1,6 +1,7 @@
 TILE_WIDTH = 18
 
 score = 0
+enemyDirection = 'left'
 
 collectCoin = ->
   @coin.kill()
@@ -17,6 +18,12 @@ playerDied = ->
   @player.kill()
   @player.reset 32, @world.height-48
 
+createEnemy = ->
+  enemy = new Enemy @game, @world.width/2 - TILE_WIDTH, 10, enemyDirection
+  @enemies.add enemy
+
+  enemeyDirection = if enemyDirection == 'left' then 'right' else 'left'
+
 preload = ->
   @load.image 'wall', 'assets/wall.png'
   @load.image 'enemy', 'assets/enemy.png'
@@ -31,7 +38,7 @@ create = ->
 
   @level = new Level @game, TILE_WIDTH
   @player = new Player @game, 32, @world.height-48
-  @enemy = new Enemy @game, @world.width/2 - TILE_WIDTH, 10, 'left'
+  @enemies = @game.add.group()
   @coin = new Coin @game
   @score = @game.add.text 25, 25, scoreText(),
     fill: '#FFF'
@@ -39,11 +46,14 @@ create = ->
   @score.fontSize = 20
   @score.fontWeight = 'bold'
 
+  createEnemy.bind(@)()
+  @game.time.events.loop 3000, createEnemy, @
+
 update = ->
   @physics.arcade.collide @player, @level.platforms
-  @physics.arcade.collide @enemy, @level.platforms
+  @physics.arcade.collide @enemies, @level.platforms
   @physics.arcade.overlap @player, @coin, collectCoin, null, @
-  @physics.arcade.overlap @player, @enemy, playerDied, null, @
+  @physics.arcade.overlap @player, @enemies, playerDied, null, @
 
   @player.body.velocity.x = 0
 
