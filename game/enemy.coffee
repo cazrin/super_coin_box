@@ -9,8 +9,7 @@ class Enemy extends Phaser.Sprite
     @checkWorldBounds = true
 
     @events.onOutOfBounds.add =>
-      @direction = direction
-      @reset x, y
+      @kill()
 
     game.add.existing @
 
