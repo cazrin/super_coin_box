@@ -1,7 +1,17 @@
 TILE_WIDTH = 18
 
+score = 0
+
 collectCoin = ->
   @coin.kill()
+
+  score += 5
+  @score.text = scoreText()
+
+  @coin.reset()
+
+scoreText = ->
+  "score: #{score}"
 
 playerDied = ->
   @player.kill()
@@ -23,6 +33,11 @@ create = ->
   @player = new Player @game, 32, @world.height-48
   @enemy = new Enemy @game, @world.width/2 - TILE_WIDTH, 10, 'left'
   @coin = new Coin @game
+  @score = @game.add.text 25, 25, scoreText(),
+    fill: '#FFF'
+  @score.font = 'Arial'
+  @score.fontSize = 20
+  @score.fontWeight = 'bold'
 
 update = ->
   @physics.arcade.collide @player, @level.platforms
