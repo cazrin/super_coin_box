@@ -22,7 +22,7 @@ createEnemy = ->
   enemy = new Enemy @game, @world.width/2 - TILE_WIDTH, 10, enemyDirection
   @enemies.add enemy
 
-  enemeyDirection = if enemyDirection == 'left' then 'right' else 'left'
+  enemyDirection = if enemyDirection == 'left' then 'right' else 'left'
 
 preload = ->
   @load.image 'wall', 'assets/wall.png'
