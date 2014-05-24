@@ -12,11 +12,19 @@ class GameOver
       align: 'center'
       fill: '#FFF'
 
-    @game.add.text 70, 260, 'press the space bar to start',
+    @helpText = @game.add.text @game.world.width/2, 260, 'press the space bar to start',
       fill: '#FFF'
+
+    @helpText.anchor.setTo 0.5
+    @helpTextAngleIncrease = 0.3
 
     @game.input.keyboard.addKeyCapture [Phaser.Keyboard.SPACEBAR]
 
   update: ->
     if @game.input.keyboard.isDown Phaser.Keyboard.SPACEBAR
       @game.state.start 'game'
+
+    if @helpText.angle >= 6 || @helpText.angle <= -6
+      @helpTextAngleIncrease *= -1
+
+    @helpText.angle += @helpTextAngleIncrease
