@@ -13,7 +13,7 @@ class Game
     @stage.backgroundColor = '#5C9CD4'
 
     @level = new Level @game, TILE_WIDTH
-    @player = new Player @game, 32, @world.height-48
+    @player = new Player @game, 40, @world.height-48
     @enemies = @game.add.group()
     @coin = new Coin @game
     @score = @game.add.text 25, 25, @scoreText(),
@@ -59,6 +59,7 @@ class Game
 
     score += 5
     @score.text = @scoreText()
+    @player.collectCoin()
 
     @coin.reset()
 

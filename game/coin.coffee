@@ -34,8 +34,7 @@ class Coin extends Phaser.Sprite
 
     @smoothed = false
 
-    @anchor.x = 0.5
-    @anchor.y = 0.5
+    @anchor.setTo 0.5
 
     @reset()
     game.add.existing @

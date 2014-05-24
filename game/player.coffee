@@ -9,6 +9,7 @@ class Player extends Phaser.Sprite
 
     game.physics.arcade.enable @
     @body.gravity.y = 600
+    @anchor.setTo 0.5
 
     game.add.existing @
 
@@ -26,3 +27,6 @@ class Player extends Phaser.Sprite
 
   jump: ->
     @body.velocity.y = -350
+
+  collectCoin: ->
+    @game.add.tween(@scale).to { x: 1.2, y: 1.2 }, 100, Phaser.Easing.Linear.None, true, 0, false, true
