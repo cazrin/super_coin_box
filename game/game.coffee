@@ -3,6 +3,9 @@ highScore = 0
 enemyDirection = 'left'
 
 class Game
+  init: ->
+    score = 0
+
   create: ->
     @physics.startSystem Phaser.Physics.ARCADE
     @cursors = @input.keyboard.createCursorKeys()

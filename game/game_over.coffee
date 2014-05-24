@@ -12,5 +12,11 @@ class GameOver
       align: 'center'
       fill: '#FFF'
 
-    @game.add.text 50, 260, 'press the up arrow key to start',
+    @game.add.text 50, 260, 'press the space bar to start',
       fill: '#FFF'
+
+    @game.input.keyboard.addKeyCapture [Phaser.Keyboard.SPACEBAR]
+
+  update: ->
+    if @game.input.keyboard.isDown Phaser.Keyboard.SPACEBAR
+      @game.state.start 'game'
