@@ -54,6 +54,7 @@ update = ->
   @physics.arcade.collide @enemies, @level.platforms
   @physics.arcade.overlap @player, @coin, collectCoin, null, @
   @physics.arcade.overlap @player, @enemies, playerDied, null, @
+  @physics.arcade.overlap @player, @level.killBox, playerDied, null, @
 
   @player.body.velocity.x = 0
 

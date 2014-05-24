@@ -42,3 +42,8 @@ class Level
     rightPlatform = @platforms.create game.world.width - tileWidth*6, tileWidth*9, 'wall'
     rightPlatform.body.immovable = true
     rightPlatform.scale.setTo 5, 1
+
+    @killBox = game.add.sprite 0, game.world.height+tileWidth
+    game.physics.enable @killBox, Phaser.Physics.ARCADE
+    @killBox.body.immovable = true
+    @killBox.body.width = game.world.width
