@@ -12,7 +12,7 @@ class GameOver
       align: 'center'
       fill: '#FFF'
 
-    @game.add.text 50, 260, 'press the space bar to start',
+    @game.add.text 70, 260, 'press the space bar to start',
       fill: '#FFF'
 
     @game.input.keyboard.addKeyCapture [Phaser.Keyboard.SPACEBAR]
