@@ -2,6 +2,8 @@ class Player extends Phaser.Sprite
   constructor: (game, x, y) ->
     super game, x, y, 'player'
 
+    @smoothed = false
+
     @animations.add 'left', [0, 1], 10, true
     @animations.add 'right', [3, 4], 10, true
 

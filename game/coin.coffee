@@ -34,6 +34,7 @@ class Coin extends Phaser.Sprite
 
     game.physics.arcade.enable @
 
+    @smoothed = false
     game.add.existing @
 
   reset: ->
