@@ -3,6 +3,16 @@ class Level
     @platforms = game.add.group()
     @platforms.enableBody = true
 
+    outerWallLeft = @platforms.create tileWidth*10, -tileWidth*6
+    outerWallLeft.body.immovable = true
+    outerWallLeft.body.width = tileWidth
+    outerWallLeft.body.height = tileWidth*6
+
+    outerWallRight = @platforms.create game.world.width - tileWidth*11, -tileWidth*6
+    outerWallRight.body.immovable = true
+    outerWallRight.body.width = tileWidth
+    outerWallRight.body.height = tileWidth*6
+
     upperLeftWall = @platforms.create 0, 0, 'wall'
     upperLeftWall.body.immovable = true
     upperLeftWall.scale.setTo 11, 1
