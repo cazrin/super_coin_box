@@ -42,6 +42,7 @@ class Game
       @player.stopMoving()
 
     if @cursors.up.isDown and @player.body.touching.down
+      @game.sound.play 'jump'
       @player.jump()
 
   scoreText: ->
@@ -53,6 +54,7 @@ class Game
     enemyDirection = if enemyDirection == 'left' then 'right' else 'left'
 
   collectCoin: ->
+    @game.sound.play 'coin'
     @coin.kill()
 
     score += 5
@@ -61,6 +63,7 @@ class Game
     @coin.reset()
 
   playerDied: ->
+    @game.sound.play 'death'
     highScore = if score > highScore then score else highScore
     @player.kill()
     @game.state.start 'gameOver', true, false, score, highScore

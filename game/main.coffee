@@ -6,6 +6,9 @@ preload = ->
   @load.image 'coin', 'assets/coin.png'
   @load.image 'background', 'assets/background.png'
   @load.spritesheet 'player', 'assets/player.png', 18, 18
+  @load.audio 'coin', ['assets/coin.ogg']
+  @load.audio 'jump', ['assets/jump.ogg']
+  @load.audio 'death', ['assets/death.ogg']
 
 create = ->
   @game.state.start 'game'
