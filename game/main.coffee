@@ -5,6 +5,7 @@ preload = ->
   @load.image 'enemy', 'assets/enemy.png'
   @load.image 'coin', 'assets/coin.png'
   @load.image 'background', 'assets/background.png'
+  @load.image 'particle', 'assets/particle.png'
   @load.spritesheet 'player', 'assets/player.png', 18, 18
   @load.audio 'coin', ['assets/coin.ogg']
   @load.audio 'jump', ['assets/jump.ogg']

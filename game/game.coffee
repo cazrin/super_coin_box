@@ -64,7 +64,19 @@ class Game
     @coin.reset()
 
   playerDied: ->
+    emitter = game.add.emitter @player.x, @player.y
+    emitter.at @player
+    emitter.gravity = 0
+    emitter.height = @player.height
+    emitter.makeParticles 'particle'
+    emitter.width = @player.width
+
+    emitter.start true, 1000, null, 30
+
     @game.sound.play 'death'
     highScore = if score > highScore then score else highScore
     @player.kill()
-    @game.state.start 'gameOver', true, false, score, highScore
+
+    @game.time.events.add Phaser.Timer.SECOND, ->
+      @game.state.start 'gameOver', true, false, score, highScore
+    , @
