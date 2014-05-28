@@ -22,6 +22,13 @@ class Game
     @score.fontSize = 20
     @score.fontWeight = 'bold'
 
+    @speaker = @game.add.sprite 10, 10, 'speaker'
+    @speaker.inputEnabled = true
+    @speaker.events.onInputDown.add @muteClicked, @
+    @speaker.animations.add 'mute', [1]
+    @speaker.animations.add 'unmute', [0]
+    @__updateMuteIcon()
+
     @createEnemy()
     @game.time.events.loop 3000, @createEnemy, @
 
@@ -80,3 +87,14 @@ class Game
     @game.time.events.add Phaser.Timer.SECOND, ->
       @game.state.start 'gameOver', true, false, score, highScore
     , @
+
+  muteClicked: ->
+    @game.sound.mute = !@game.sound.mute
+
+    @__updateMuteIcon()
+
+  __updateMuteIcon: ->
+    if @game.sound.mute
+      @speaker.play 'mute'
+    else
+      @speaker.play 'unmute'
