@@ -6,6 +6,7 @@ preload = ->
   @load.image 'coin', 'assets/coin.png'
   @load.image 'background', 'assets/background.png'
   @load.image 'particle', 'assets/particle.png'
+  @load.image 'title', 'assets/title.png'
   @load.spritesheet 'speaker', 'assets/speaker.png', 21, 16
   @load.spritesheet 'player', 'assets/player.png', 18, 18
   @load.audio 'coin', ['assets/coin.ogg']

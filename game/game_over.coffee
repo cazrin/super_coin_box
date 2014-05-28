@@ -5,8 +5,13 @@ class GameOver
 
   create: ->
     @game.add.tileSprite 0, 0, @game.world.width, @game.world.height, 'background'
-    @game.add.text 140, 50, 'Super Coin Box',
-      fill: '#FFF'
+
+    title = @game.add.sprite 0, -80, 'title'
+    title.x = @game.world.width/2 - title.width/2
+
+    bounce = @game.add.tween title
+    bounce.to { y: 50 }, 500, Phaser.Easing.Bounce.Out
+    bounce.start()
 
     @game.add.text 160, 130, "score: #{@score}\nbest score: #{highScore}",
       align: 'center'
